@@ -12,10 +12,9 @@
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="#" class="nav__brand" data-view="dashboard" aria-label="Dashboard">
-        <span class="nav__icon">◈</span>
-        <span class="nav__title">Seating Planner</span>
+        Seating Planner
       </a>
-      <div class="nav__links" id="navLinks">
+      <div class="nav__links">
         <a href="#" data-view="guests" class="nav__link">Guests</a>
         <a href="#" data-view="relations" class="nav__link">Relationships</a>
         <a href="#" data-view="tables" class="nav__link">Tables</a>
@@ -29,7 +28,7 @@
 
   <main class="main" role="main">
     <div id="loadingOverlay" class="loading-overlay" aria-hidden="true">
-      <div class="loading-spinner" role="status"><span class="sr-only">Loading…</span></div>
+      <div class="loading-spinner" role="status"><span class="sr-only">Loading</span></div>
     </div>
 
     <!-- Dashboard -->
@@ -37,34 +36,32 @@
       <div class="dashboard">
         <div class="dashboard__hero">
           <h1 class="dashboard__title">Wedding Seating</h1>
-          <p class="dashboard__subtitle">Assign guests | Map relationships | Generate seating</p>
-          <p class="dashboard__subtitle" style="font-size:.8rem;color:var(--text-muted);margin-top:var(--space)">
-            Data stored in your browser. Export before clearing.
-          </p>
+          <p class="dashboard__subtitle">Guest management &bull; Relationship mapping &bull; Constraint-based seating</p>
+          <p class="dashboard__tagline">All data stored in your browser. Export before clearing.</p>
         </div>
         <div class="dashboard__cards" id="dashboardCards">
           <div class="stat-card" data-action="guests">
-            <div class="stat-card__icon">👤</div>
+            <div class="stat-card__indicator stat-card__indicator--guests"></div>
             <div class="stat-card__value" id="statGuests">0</div>
             <div class="stat-card__label">Guests</div>
           </div>
           <div class="stat-card" data-action="relations">
-            <div class="stat-card__icon">🔗</div>
+            <div class="stat-card__indicator stat-card__indicator--relations"></div>
             <div class="stat-card__value" id="statRelationships">0</div>
-            <div class="stat-card__label">Relationships</div>
+            <div class="stat-card__label">Connections</div>
           </div>
           <div class="stat-card" data-action="tables">
-            <div class="stat-card__icon">🪑</div>
+            <div class="stat-card__indicator stat-card__indicator--tables"></div>
             <div class="stat-card__value" id="statTables">0</div>
             <div class="stat-card__label">Tables</div>
           </div>
           <div class="stat-card" data-action="seating">
-            <div class="stat-card__icon">✅</div>
+            <div class="stat-card__indicator stat-card__indicator--seated"></div>
             <div class="stat-card__value" id="statSeated">0</div>
             <div class="stat-card__label">Seated</div>
           </div>
         </div>
-        <div class="dashboard__actions" style="display:flex;gap:var(--space);justify-content:center;margin-top:var(--space-lg)">
+        <div class="dashboard__controls">
           <button class="btn btn--outline" id="btnExportJSON">Export JSON</button>
           <button class="btn btn--danger" id="btnResetData">Reset All Data</button>
         </div>
@@ -76,7 +73,7 @@
     <section id="view-guests" class="view" aria-label="Guest management" hidden>
       <div class="guests">
         <div class="view-header">
-          <h2 class="view-title">Guest Management</h2>
+          <h2 class="view-title">Guests</h2>
           <div class="view-actions">
             <button class="btn btn--outline" data-modal="importModal">Import CSV</button>
             <button class="btn btn--outline" data-modal="bulkModal">Bulk Add</button>
@@ -85,30 +82,29 @@
         </div>
         <div class="guests__toolbar">
           <div class="search-input">
-            <span class="search-input__icon">🔍</span>
-            <input type="text" id="guestSearch" class="search-input__field" placeholder="Search guests…" aria-label="Search guests">
+            <input type="text" id="guestSearch" class="search-input__field" placeholder="Search guests by name" aria-label="Search guests">
           </div>
           <div class="filter-group">
             <select id="filterSide" class="select" aria-label="Filter by side">
-              <option value="">All Sides</option>
+              <option value="">All sides</option>
               <option value="bride">Bride</option>
               <option value="groom">Groom</option>
               <option value="joint">Joint</option>
             </select>
             <select id="filterCategory" class="select" aria-label="Filter by category">
-              <option value="">All Categories</option>
+              <option value="">All categories</option>
               <option value="family">Family</option>
               <option value="friend">Friend</option>
-              <option value="work_colleague">Work Colleague</option>
+              <option value="work_colleague">Work</option>
               <option value="other">Other</option>
             </select>
           </div>
         </div>
         <div class="guests__list" id="guestList" role="list" aria-label="Guest list"></div>
         <div class="empty-state" id="guestEmpty">
-          <div class="empty-state__icon">👥</div>
+          <div class="empty-state__icon">+</div>
           <div class="empty-state__text">No guests yet</div>
-          <div class="empty-state__hint">Add guests via CSV, bulk paste, or one-by-one</div>
+          <div class="empty-state__hint">Add guests via CSV import, bulk paste, or one-by-one</div>
         </div>
       </div>
     </section>
@@ -117,25 +113,24 @@
     <section id="view-relations" class="view" aria-label="Relationship mapping" hidden>
       <div class="relations">
         <div class="view-header">
-          <h2 class="view-title">Relationship Map</h2>
+          <h2 class="view-title">Relationships</h2>
           <button class="btn btn--primary" data-modal="addRelationModal">Add Connection</button>
         </div>
         <div class="relations__legend">
-          <div class="relations__legend-item"><span class="badge badge--couple">●</span> Couple / Inseparable</div>
-          <div class="relations__legend-item"><span class="badge badge--enemy">●</span> Enemies / Avoid</div>
-          <div class="relations__legend-item"><span class="badge badge--friend">●</span> Friendship</div>
+          <div class="relations__legend-item">Couple / Inseparable</div>
+          <div class="relations__legend-item">Enemies / Avoid</div>
+          <div class="relations__legend-item">Friendship</div>
         </div>
         <div class="relations__stats" id="relationStats"></div>
         <div class="guests__toolbar">
           <div class="search-input">
-            <span class="search-input__icon">🔍</span>
-            <input type="text" id="relationSearch" class="search-input__field" placeholder="Search…" aria-label="Search relationships">
+            <input type="text" id="relationSearch" class="search-input__field" placeholder="Search guests in connections" aria-label="Search relationships">
           </div>
         </div>
         <div class="relations__list" id="relationList" role="list"></div>
         <div class="empty-state" id="relationEmpty">
-          <div class="empty-state__icon">🔗</div>
-          <div class="empty-state__text">No relationships defined</div>
+          <div class="empty-state__icon">+</div>
+          <div class="empty-state__text">No connections defined</div>
           <div class="empty-state__hint">Connect guests to guide the seating algorithm</div>
         </div>
         <div class="relations__matrix-section">
@@ -151,7 +146,7 @@
     <section id="view-tables" class="view" aria-label="Table management" hidden>
       <div class="tables-view">
         <div class="view-header">
-          <h2 class="view-title">Table Configuration</h2>
+          <h2 class="view-title">Tables</h2>
           <div class="view-actions">
             <input type="number" id="autoTableCount" class="input input--sm" value="5" min="1" max="30" aria-label="Number of tables">
             <input type="number" id="autoTableCapacity" class="input input--sm" value="8" min="2" max="20" aria-label="Capacity per table">
@@ -161,7 +156,7 @@
         </div>
         <div class="tables__grid" id="tablesGrid" role="list"></div>
         <div class="empty-state" id="tableEmpty">
-          <div class="empty-state__icon">🪑</div>
+          <div class="empty-state__icon">+</div>
           <div class="empty-state__text">No tables defined</div>
           <div class="empty-state__hint">Define tables before generating seating</div>
         </div>
@@ -180,17 +175,17 @@
           </div>
         </div>
         <div class="seating__results" id="seatingResults" hidden>
-          <div class="seating__score">
-            <span class="seating__score-label">Score:</span>
-            <span class="seating__score-value" id="algoScore">—</span>
+          <div class="seating__results-item">
+            <div class="seating__score-label">Score</div>
+            <div class="seating__score-value" id="algoScore">--</div>
           </div>
-          <div class="seating__hard">
-            <span class="seating__score-label">Constraints met:</span>
-            <span class="seating__score-value" id="algoHard">— / —</span>
+          <div class="seating__results-item">
+            <div class="seating__score-label">Hard constraints</div>
+            <div class="seating__score-value" id="algoHard">-- / --</div>
           </div>
-          <div class="seating__time">
-            <span class="seating__score-label">Duration:</span>
-            <span class="seating__score-value" id="algoDuration">—</span>
+          <div class="seating__results-item">
+            <div class="seating__score-label">Duration</div>
+            <div class="seating__score-value" id="algoDuration">--</div>
           </div>
         </div>
         <div class="seating__violations" id="seatingViolations" hidden>
@@ -209,12 +204,12 @@
     <form class="modal__form" id="addGuestForm">
       <div class="modal__header">
         <h3 class="modal__title">Add Guest</h3>
-        <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+        <button type="button" class="modal__close" data-close aria-label="Close">x</button>
       </div>
       <div class="modal__body">
         <div class="form-field">
-          <label for="guestName" class="form-label">Name *</label>
-          <input type="text" id="guestName" class="input" required aria-required="true">
+          <label for="guestName" class="form-label">Name</label>
+          <input type="text" id="guestName" class="input" required aria-required="true" placeholder="Guest full name">
         </div>
         <div class="form-row">
           <div class="form-field">
@@ -230,13 +225,13 @@
             <select id="guestCategory" class="select">
               <option value="family">Family</option>
               <option value="friend">Friend</option>
-              <option value="work_colleague">Work Colleague</option>
+              <option value="work_colleague">Work</option>
               <option value="other">Other</option>
             </select>
           </div>
         </div>
         <div class="form-field">
-          <label for="guestRole" class="form-label">Role (optional)</label>
+          <label for="guestRole" class="form-label">Role <span class="text-xs" style="color:var(--text-muted);font-weight:400;text-transform:none">(optional)</span></label>
           <input type="text" id="guestRole" class="input" placeholder="e.g., Maid of Honor, Best Man">
         </div>
       </div>
@@ -247,16 +242,16 @@
     </form>
   </dialog>
 
-  <dialog id="bulkModal" class="modal modal--wide" aria-label="Bulk add">
+  <dialog id="bulkModal" class="modal modal--wide" aria-label="Bulk add guests">
     <form class="modal__form" id="bulkForm">
       <div class="modal__header">
         <h3 class="modal__title">Bulk Add Guests</h3>
-        <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+        <button type="button" class="modal__close" data-close aria-label="Close">x</button>
       </div>
       <div class="modal__body">
         <div class="form-field">
-          <label for="bulkNames" class="form-label">Paste names (one per line)</label>
-          <textarea id="bulkNames" class="textarea" rows="10" placeholder="Alice Smith&#10;Bob Jones&#10;Carol Williams&#10;…"></textarea>
+          <label for="bulkNames" class="form-label">Names (one per line)</label>
+          <textarea id="bulkNames" class="textarea" rows="10" placeholder="Alice Smith&#10;Bob Jones&#10;Carol Williams"></textarea>
         </div>
         <div class="form-row">
           <div class="form-field">
@@ -272,7 +267,7 @@
             <select id="bulkCategory" class="select">
               <option value="family">Family</option>
               <option value="friend">Friend</option>
-              <option value="work_colleague">Work Colleague</option>
+              <option value="work_colleague">Work</option>
               <option value="other">Other</option>
             </select>
           </div>
@@ -285,19 +280,19 @@
     </form>
   </dialog>
 
-  <dialog id="importModal" class="modal" aria-label="Import CSV">
+  <dialog id="importModal" class="modal modal--wide" aria-label="Import CSV">
     <form class="modal__form" id="csvForm">
       <div class="modal__header">
         <h3 class="modal__title">Import CSV</h3>
-        <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+        <button type="button" class="modal__close" data-close aria-label="Close">x</button>
       </div>
       <div class="modal__body">
         <div class="form-field">
-          <label for="csvText" class="form-label">Paste CSV data</label>
-          <textarea id="csvText" class="textarea" rows="8" placeholder="Name,Side,Category,Role&#10;Alice Smith,bride,family,Maid of Honor&#10;Bob Jones,groom,friend,Best Man&#10;…"></textarea>
+          <label for="csvText" class="form-label">CSV Data</label>
+          <textarea id="csvText" class="textarea" rows="8" placeholder="Name,Side,Category,Role&#10;Alice Smith,bride,family,Maid of Honor&#10;Bob Jones,groom,friend,Best Man"></textarea>
         </div>
         <div class="form-hint">
-          First row is auto-detected as header. Columns: Name, Side (bride/groom/joint), Category (family/friend/work/other), Role (optional).
+          First row is auto-detected as header. Columns: Name, Side (bride/groom/joint), Category (family/friend/work/other), Role.
         </div>
       </div>
       <div class="modal__footer">
@@ -311,12 +306,12 @@
     <form class="modal__form" id="editGuestForm">
       <div class="modal__header">
         <h3 class="modal__title">Edit Guest</h3>
-        <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+        <button type="button" class="modal__close" data-close aria-label="Close">x</button>
       </div>
       <div class="modal__body">
         <input type="hidden" id="editGuestId">
         <div class="form-field">
-          <label for="editGuestName" class="form-label">Name *</label>
+          <label for="editGuestName" class="form-label">Name</label>
           <input type="text" id="editGuestName" class="input" required aria-required="true">
         </div>
         <div class="form-row">
@@ -333,7 +328,7 @@
             <select id="editGuestCategory" class="select">
               <option value="family">Family</option>
               <option value="friend">Friend</option>
-              <option value="work_colleague">Work Colleague</option>
+              <option value="work_colleague">Work</option>
               <option value="other">Other</option>
             </select>
           </div>
@@ -354,11 +349,11 @@
     <form class="modal__form" id="addTableForm">
       <div class="modal__header">
         <h3 class="modal__title">Add Table</h3>
-        <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+        <button type="button" class="modal__close" data-close aria-label="Close">x</button>
       </div>
       <div class="modal__body">
         <div class="form-field">
-          <label for="tableName" class="form-label">Name *</label>
+          <label for="tableName" class="form-label">Name</label>
           <input type="text" id="tableName" class="input" placeholder="Table 1" required aria-required="true">
         </div>
         <div class="form-row">
@@ -375,7 +370,7 @@
           </div>
         </div>
         <div class="form-field">
-          <label for="tableLabel" class="form-label">Label</label>
+          <label for="tableLabel" class="form-label">Label <span class="text-xs" style="color:var(--text-muted);font-weight:400;text-transform:none">(optional)</span></label>
           <input type="text" id="tableLabel" class="input" placeholder="e.g., Head Table">
         </div>
       </div>
@@ -390,12 +385,12 @@
     <form class="modal__form" id="editTableForm">
       <div class="modal__header">
         <h3 class="modal__title">Edit Table</h3>
-        <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+        <button type="button" class="modal__close" data-close aria-label="Close">x</button>
       </div>
       <div class="modal__body">
         <input type="hidden" id="editTableId">
         <div class="form-field">
-          <label for="editTableName" class="form-label">Name *</label>
+          <label for="editTableName" class="form-label">Name</label>
           <input type="text" id="editTableName" class="input" required>
         </div>
         <div class="form-row">
@@ -427,19 +422,19 @@
     <form class="modal__form" id="addRelationForm">
       <div class="modal__header">
         <h3 class="modal__title">Add Connection</h3>
-        <button type="button" class="modal__close" data-close aria-label="Close">✕</button>
+        <button type="button" class="modal__close" data-close aria-label="Close">x</button>
       </div>
       <div class="modal__body">
         <div class="form-field">
-          <label for="relGuestA" class="form-label">Guest A *</label>
+          <label for="relGuestA" class="form-label">Guest A</label>
           <select id="relGuestA" class="select" required>
-            <option value="">— Select guest —</option>
+            <option value="">Select guest</option>
           </select>
         </div>
         <div class="form-field">
-          <label for="relGuestB" class="form-label">Guest B *</label>
+          <label for="relGuestB" class="form-label">Guest B</label>
           <select id="relGuestB" class="select" required>
-            <option value="">— Select guest —</option>
+            <option value="">Select guest</option>
           </select>
         </div>
         <div class="form-field">
@@ -451,7 +446,7 @@
           </select>
         </div>
         <div class="form-field" id="relWeightField">
-          <label for="relWeight" class="form-label">Strength (1-10)</label>
+          <label for="relWeight" class="form-label">Strength <span class="text-xs" style="color:var(--text-muted);font-weight:400;text-transform:none">(1-10)</span></label>
           <input type="range" id="relWeight" class="range" min="1" max="10" value="5">
           <span class="range-value" id="relWeightDisplay">5</span>
         </div>
@@ -463,10 +458,8 @@
     </form>
   </dialog>
 
-  <!-- Toast container -->
   <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
 
-  <!-- Scripts -->
   <script src="js/datastore.js"></script>
   <script src="js/algorithm.js"></script>
   <script src="js/app.js"></script>
