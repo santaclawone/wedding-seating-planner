@@ -102,7 +102,7 @@
         </div>
         <div class="guests__list" id="guestList" role="list" aria-label="Guest list"></div>
         <div class="empty-state" id="guestEmpty">
-          <div class="empty-state__icon">+</div>
+          <div class="empty-state__icon" data-modal="addGuestModal" role="button" tabindex="0">+</div>
           <div class="empty-state__text">No guests yet</div>
           <div class="empty-state__hint">Add guests via CSV import, bulk paste, or one-by-one</div>
         </div>
@@ -129,7 +129,7 @@
         </div>
         <div class="relations__list" id="relationList" role="list"></div>
         <div class="empty-state" id="relationEmpty">
-          <div class="empty-state__icon">+</div>
+          <div class="empty-state__icon" data-modal="addRelationModal" role="button" tabindex="0">+</div>
           <div class="empty-state__text">No connections defined</div>
           <div class="empty-state__hint">Connect guests to guide the seating algorithm</div>
         </div>
@@ -156,7 +156,7 @@
         </div>
         <div class="tables__grid" id="tablesGrid" role="list"></div>
         <div class="empty-state" id="tableEmpty">
-          <div class="empty-state__icon">+</div>
+          <div class="empty-state__icon" data-modal="addTableModal" role="button" tabindex="0">+</div>
           <div class="empty-state__text">No tables defined</div>
           <div class="empty-state__hint">Define tables before generating seating</div>
         </div>
